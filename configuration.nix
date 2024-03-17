@@ -18,7 +18,6 @@
     "ntfs"
     "cifs"
     "bcachefs"
-    "zfs"
     "ext4"
   ];
 
