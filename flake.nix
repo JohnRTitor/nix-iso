@@ -1,3 +1,8 @@
+# This is a basic NixOS flake template for a live ISO image
+# that can be used to install NixOS on a system.
+# ISO can be built using `nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage`
+# Make sure to enable flakes and nix-command on the host system, before building the ISO
+
 {
   description = "Unstable NixOS custom installation media";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

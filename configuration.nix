@@ -1,3 +1,7 @@
+# This is a basic NixOS configuration template for a live ISO image
+# that can be used to install NixOS on a system.
+# ISO can be built using `nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage`
+# Make sure to enable flakes and nix-command on the host system before building the ISO
 { config, lib, pkgs, ... }:
 
 {
@@ -18,7 +22,7 @@
     "ext4"
   ];
 
-  networking.hostname = "nixos-iso"; # set live session hostname
+  networking.hostName = "nixos-iso"; # set live session hostname
 
   # Enable NetworkManager to manage network connections.
   networking.networkmanager.enable = true;
