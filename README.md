@@ -1,6 +1,6 @@
 # NixOS ISO Configuration Repository
 
-This repository contains configuration files for building a custom NixOS ISO. The ISO is based on the `nixpkgs-unstable` repository and includes the latest Zen kernel with support for the latest filesystems, including `bcachefs`, `btrfs`, `ext4`.
+This repository contains configuration files for building a custom NixOS ISO. The ISO is based on the `nixpkgs-unstable` repository and includes the latest Zen kernel (6.8+) with support for the latest filesystems, including `bcachefs`, `btrfs`, `ext4`.
 
 Two types of ISO can be built:-
 * Graphical
@@ -49,3 +49,12 @@ Contributions to this repository are welcome. Please feel free to open an issue 
 While every effort has been made to ensure these configuration files work as expected, they are provided "as is". Please use at your own risk.
 
 Please note that this guide assumes you have a basic understanding of NixOS and the Nix package manager. If you are new to Nix or NixOS, you may want to check out the [Nix manual](https://nixos.org/manual/nix/stable/) for more information.
+
+## Now, the question is, why?...
+
+A week ago, I had to make an ISO image to support `bcachefs` filesystem because official ISO releases back then did not have the latest kernel.
+I quickly looked up the docs, put together a shaky configuration to build it for myself.
+Have been using the system with Bcachefs since and it is chill af.
+Figured some people might be in a similar situation, so here we are...
+
+I also provide minimal ISO builds via this repo (check Releases). May be outdated though by the time you are reading this, ping me up by creating an issue, I'll provide an updated release ASAP.
