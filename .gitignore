@@ -1,0 +1,19 @@
+# Ignore everything
+*
+
+# But don't ignore folders
+!*/
+
+# But don't ignore these types of files
+!*.nix
+!*.yml
+!*.lock
+
+# Don't ignore the README
+!README.md
+
+# Don't ignore LICENSE and github actions
+!LICENSE
+!.github/workflows
+
+# Ignore files larger than 100M
