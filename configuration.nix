@@ -18,7 +18,7 @@
     "ext4"
   ];
 
-  networking.hostname = "nixos"; # set live session hostname
+  networking.hostname = "nixos-iso"; # set live session hostname
 
   # Enable NetworkManager to manage network connections.
   networking.networkmanager.enable = true;
