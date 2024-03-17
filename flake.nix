@@ -1,5 +1,5 @@
 {
-  description = "Custom NixOS installation media";
+  description = "Unstable NixOS custom installation media";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
   outputs = { self, nixpkgs }: {
     nixosConfigurations = {
