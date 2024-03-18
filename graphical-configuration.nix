@@ -15,7 +15,8 @@
                             removeLinuxDRM = pkgs.hostPlatform.isAarch64;
                           }).latestCompatibleLinuxPackages
                         else
-                          pkgs.linuxPackages_zen;
+                          pkgs.linuxPackages_zen
+                        ;
   boot.supportedFilesystems = [
     "btrfs"
     "reiserfs"
@@ -28,7 +29,7 @@
     "ext4"
   ]
   ++
-  lib.optional (zfsSupport)
+  lib.optionals (zfsSupport)
     [ "zfs" ]
   ;
 
