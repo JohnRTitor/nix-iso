@@ -4,22 +4,30 @@
 # Make sure to enable flakes and nix-command on the host system before building the ISO
 # Resulting image can be found in ./result/iso/ directory
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, zfsSupport, ... }:
 
 {
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault system;
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; # enable nix command and flakes
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.supportedFilesystems = lib.mkForce [
+  boot.kernelPackages = if (zfsSupport == true) then
+                          (pkgs.zfs.override {
+                            removeLinuxDRM = pkgs.hostPlatform.isAarch64;
+                          }).latestCompatibleLinuxPackages
+                        else
+                          pkgs.linuxPackages_zen;
+  boot.supportedFilesystems = [
     "btrfs"
-    "vfat"
     "f2fs"
     "xfs"
     "ntfs"
     "bcachefs"
     "ext4"
-  ];
+  ]
+  ++
+  lib.optional (zfsSupport)
+    [ "zfs" ]
+  ;
 
   networking.hostName = "nixos-minimal"; # set live session hostname
   # Wireless network and wired network is enabled by default
