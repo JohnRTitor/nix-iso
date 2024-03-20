@@ -16,4 +16,7 @@
 !LICENSE
 !.github/workflows
 
+# Ignore results of the build
+result
+
 # Ignore files larger than 100M
