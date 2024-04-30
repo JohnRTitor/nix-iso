@@ -8,18 +8,17 @@
 
 {
   description = "Unstable NixOS custom installation media";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
+  outputs =
+    { self, nixpkgs }:
     let
       system = "x86_64-linux"; # change arch here
-      zfsSupport = false; # Set to true to enable ZFS support
-      # If ZFS support is enabled, it might use an older kernel
 
       specialArgs = {
         inherit system;
-        inherit zfsSupport;
       };
-    in {
+    in
+    {
       ## GRAPHICAL ISO ##
       nixosConfigurations.nixos-iso = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -41,5 +40,3 @@
       };
     };
 }
-
-
