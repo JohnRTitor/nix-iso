@@ -34,7 +34,7 @@
 
   nixpkgs.config.allowUnfree = true;
   # Set environment variable for allowing non-free packages
-  environment.sessionVariables =  {
+  environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
