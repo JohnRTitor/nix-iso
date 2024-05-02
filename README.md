@@ -1,6 +1,6 @@
 # NixOS ISO Configuration Repository
 
-This repository contains configuration files for building a custom NixOS ISO. The ISO is based on the `nixpkgs-unstable` repository and includes the latest Zen kernel (6.8+) with support for the latest filesystems, including `bcachefs`, `btrfs`, `ext4`.
+This repository contains configuration files for building a custom NixOS ISO. The ISO is based on the `nixos-unstable` repository and includes the latest Zen kernel (6.8+) with support for the latest filesystems, including `bcachefs`, `btrfs`, `ext4`.
 
 Two types of ISO can be built:-
 

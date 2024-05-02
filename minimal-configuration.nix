@@ -9,7 +9,6 @@
   lib,
   pkgs,
   system,
-  zfsSupport,
   ...
 }:
 
@@ -20,11 +19,7 @@
     "flakes"
   ]; # enable nix command and flakes
 
-  boot.kernelPackages =
-    if (zfsSupport == true) then
-      (pkgs.zfs.override { removeLinuxDRM = pkgs.hostPlatform.isAarch64; }).latestCompatibleLinuxPackages
-    else
-      pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.supportedFilesystems = [
     "btrfs"
     "f2fs"
@@ -32,7 +27,7 @@
     "ntfs"
     "bcachefs"
     "ext4"
-  ] ++ lib.optionals zfsSupport [ "zfs" ];
+  ];
 
   networking.hostName = "nixos-minimal"; # set live session hostname
   # Wireless network and wired network is enabled by default

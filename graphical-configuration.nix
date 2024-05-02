@@ -9,7 +9,6 @@
   lib,
   pkgs,
   system,
-  zfsSupport,
   ...
 }:
 
@@ -20,11 +19,7 @@
     "flakes"
   ]; # enable nix command and flakes
 
-  boot.kernelPackages =
-    if (zfsSupport == true) then
-      (pkgs.zfs.override { removeLinuxDRM = pkgs.hostPlatform.isAarch64; }).latestCompatibleLinuxPackages
-    else
-      pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.supportedFilesystems = [
     "btrfs"
     "reiserfs"
@@ -35,7 +30,7 @@
     "cifs"
     "bcachefs"
     "ext4"
-  ] ++ lib.optionals zfsSupport [ "zfs" ];
+  ];
 
   networking.hostName = "nixos-iso"; # set live session hostname
 

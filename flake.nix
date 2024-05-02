@@ -13,12 +13,9 @@
     { self, nixpkgs }:
     let
       system = "x86_64-linux"; # change arch here
-      zfsSupport = false; # Set to true to enable ZFS support
-      # If ZFS support is enabled, it might use an older kernel
 
       specialArgs = {
         inherit system;
-        inherit zfsSupport;
       };
     in
     {
