@@ -8,7 +8,7 @@
 
 {
   description = "Unstable NixOS custom installation media";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   outputs =
     { self, nixpkgs }:
     let

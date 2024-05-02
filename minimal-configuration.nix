@@ -32,14 +32,14 @@
     "ntfs"
     "bcachefs"
     "ext4"
-  ] ++ lib.optionals (zfsSupport) [ "zfs" ];
+  ] ++ lib.optionals zfsSupport [ "zfs" ];
 
   networking.hostName = "nixos-minimal"; # set live session hostname
   # Wireless network and wired network is enabled by default
 
   nixpkgs.config.allowUnfree = true;
   # Set environment variable for allowing non-free packages
-  environment.sessionVariables = rec {
+  environment.sessionVariables =  {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
