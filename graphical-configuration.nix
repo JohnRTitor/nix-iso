@@ -13,7 +13,7 @@
 }:
 
 {
-	nixpkgs.overlays = [
+  nixpkgs.overlays = [
     (final: prev: {
       bcachefs-tools = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs.overrideAttrs (oldAttrs: {
         patches = [
