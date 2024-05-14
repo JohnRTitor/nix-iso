@@ -11,12 +11,13 @@
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   inputs.bcachefs-tools.url = "github:koverstreet/bcachefs-tools";
   outputs =
-    { self, nixpkgs }@inputs:
+    { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux"; # change arch here
 
       specialArgs = {
         inherit system;
+        inherit inputs;
       };
     in
     {

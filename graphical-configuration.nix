@@ -9,6 +9,7 @@
   lib,
   pkgs,
   system,
+  inputs,
   ...
 }:
 
