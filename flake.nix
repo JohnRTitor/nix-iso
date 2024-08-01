@@ -8,14 +8,18 @@
 
 {
   description = "Unstable NixOS custom installation media";
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    bcachefs-tools.url = "github:koverstreet/bcachefs-tools";
+  };
   outputs =
-    { self, nixpkgs }:
+    { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux"; # change arch here
 
       specialArgs = {
         inherit system;
+        inherit inputs;
       };
     in
     {
