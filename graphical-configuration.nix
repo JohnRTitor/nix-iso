@@ -9,6 +9,7 @@
   lib,
   pkgs,
   system,
+  inputs,
   ...
 }:
 
@@ -36,7 +37,6 @@
 
   # Enable NetworkManager to manage network connections.
   networking.networkmanager.enable = true;
-  sound.enable = true; # Enable sound
   hardware.bluetooth.enable = true; # enables support for Bluetooth
 
   nixpkgs.config.allowUnfree = true;
@@ -52,5 +52,11 @@
     parted
     google-chrome
     firefox
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      bcachefs-tools = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
+    })
   ];
 }
