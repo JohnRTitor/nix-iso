@@ -9,7 +9,8 @@
   pkgs,
   system,
   ...
-}: {
+}:
+{
   nixpkgs.hostPlatform = lib.mkDefault system;
   nix.settings.experimental-features = [
     "nix-command"

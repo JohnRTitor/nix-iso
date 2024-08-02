@@ -11,37 +11,36 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     bcachefs-tools.url = "github:koverstreet/bcachefs-tools";
   };
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux"; # change arch here
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      system = "x86_64-linux"; # change arch here
 
-    specialArgs = {
-      inherit system;
-      inherit inputs;
+      specialArgs = {
+        inherit system;
+        inherit inputs;
+      };
+    in
+    {
+      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+      ## GRAPHICAL ISO ##
+      nixosConfigurations.nixos-iso = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+          ./graphical-configuration.nix
+        ];
+        inherit specialArgs;
+      };
+      ## MINIMAL ISO ##
+      nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ./minimal-configuration.nix
+        ];
+        inherit specialArgs;
+      };
     };
-  in {
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
-    ## GRAPHICAL ISO ##
-    nixosConfigurations.nixos-iso = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-        ./graphical-configuration.nix
-      ];
-      inherit specialArgs;
-    };
-    ## MINIMAL ISO ##
-    nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ./minimal-configuration.nix
-      ];
-      inherit specialArgs;
-    };
-  };
 }

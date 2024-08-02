@@ -10,7 +10,8 @@
   system,
   inputs,
   ...
-}: {
+}:
+{
   nixpkgs.hostPlatform = lib.mkDefault system;
   nix.settings.experimental-features = [
     "nix-command"
@@ -54,8 +55,6 @@
   systemd.enableUnifiedCgroupHierarchy = lib.mkForce false;
 
   nixpkgs.overlays = [
-    (final: prev: {
-      bcachefs-tools = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
-    })
+    (final: prev: { bcachefs-tools = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools; })
   ];
 }
