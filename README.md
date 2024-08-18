@@ -26,14 +26,14 @@ cd nix-iso
 
 * For building full graphical ISO
 
-```bash
-nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage
+```shell
+env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage --impure
 ```
 
 * For building minimal ISO
 
 ```bash
-nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage
+env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
 ```
 
 Ensure that flakes and nix-command are enabled on the host system before building the ISO.
