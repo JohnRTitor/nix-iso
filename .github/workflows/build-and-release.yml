@@ -12,14 +12,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Install Nix
-        uses: cachix/install-nix-action@v25
+      - name: prepare /nix
+        shell: bash
+        env:
+          CLEAN: "true"
+          BTRFS: "true"
+        run: |
+          curl -o prepare.sh https://raw.githubusercontent.com/JohnRTitor/nixpkgs-review-gha/refs/heads/main/helpers/prepare.sh
+          bash prepare.sh
+
+      - name: install nix
+        uses: cachix/install-nix-action@v30
         with:
           extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
+            build-dir = /nix/var
+            experimental-features = nix-command flakes
+            sandbox = true
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: build
         run: |
