@@ -1,0 +1,52 @@
+name: Release NixOS unstable ISO
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: "0 1 * * 0-6"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            accept-flake-config = true
+
+      - name: build
+        run: |
+          env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: Unstable-ISO.iso
+          path: result/iso/
+
+  release:
+    needs: [build]
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: Unstable-ISO.iso
+
+      - name: release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          title: Continuous build
+          automatic_release_tag: continuous
+          prerelease: false
+          draft: false
+          files: |
+            *.iso*
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
