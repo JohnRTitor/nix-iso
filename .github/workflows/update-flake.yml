@@ -1,12 +1,16 @@
 name: update-flake-lock
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '0 0 * * 0' # runs weekly on Sunday at 00:00
+    - cron: "0 0 * * 0" # runs weekly on Sunday at 00:00
     # - cron: '0 0 * * *' # runs everyday at 00:00
   push:
-      paths:
-        - 'flake.nix'
+    paths:
+      - "flake.nix"
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -20,6 +24,6 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             accept-flake-config = true
       - name: Reformat *.nix files
-        run:  nix fmt
+        run: nix fmt
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v21

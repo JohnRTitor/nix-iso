@@ -4,8 +4,10 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  schedule:
-    - cron: "0 1 * * 0-6"
+  workflow_run:
+    workflows: [update-flake-lock]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
