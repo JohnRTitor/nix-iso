@@ -13,47 +13,50 @@
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # Bleeding edge packages from chaotic nyx, especially CachyOS kernel
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    chaotic,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux"; # change arch here
+  outputs =
+    {
+      self,
+      nixpkgs,
+      chaotic,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux"; # change arch here
 
-    specialArgs = {
-      inherit inputs;
-    };
-  in {
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+      specialArgs = {
+        inherit inputs;
+      };
+    in
+    {
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
 
-    ## GNOME ISO ##
-    nixosConfigurations.nixos-gnome = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./gnome
-      ];
-      inherit specialArgs;
-    };
+      ## GNOME ISO ##
+      nixosConfigurations.nixos-gnome = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./gnome
+        ];
+        inherit specialArgs;
+      };
 
-    ## COSMIC ISO ##
-    nixosConfigurations.nixos-cosmic = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./cosmic
-      ];
-      inherit specialArgs;
-    };
+      ## COSMIC ISO ##
+      nixosConfigurations.nixos-cosmic = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./cosmic
+        ];
+        inherit specialArgs;
+      };
 
-    ## MINIMAL ISO ##
-    nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        ./minimal
-      ];
-      inherit specialArgs;
+      ## MINIMAL ISO ##
+      nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./minimal
+        ];
+        inherit specialArgs;
+      };
     };
-  };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {

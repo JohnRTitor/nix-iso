@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.chaotic.nixosModules.default
   ];
@@ -28,6 +29,17 @@
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   boot.zfs.package = lib.mkOverride 99 pkgs.zfs_cachyos;
+  boot.supportedFilesystems = [
+    "btrfs"
+    "vfat"
+    "f2fs"
+    "xfs"
+    "ntfs"
+    "cifs"
+    "bcachefs"
+    "ext4"
+    "zfs"
+  ];
 
   environment.systemPackages = with pkgs; [
     # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
