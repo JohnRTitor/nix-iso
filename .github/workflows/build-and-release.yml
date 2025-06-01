@@ -57,7 +57,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           title: Continuous build
-          automatic_release_tag: continuous
+          automatic_release_tag: ${{ github.run_id }}
           prerelease: false
           draft: false
           files: |
