@@ -1,56 +1,68 @@
-# This is a basic NixOS flake template for a live ISO image
-# that can be used to install NixOS on a system.
-# ISO can be built using
-# `nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage` - Graphical ISO
-# `nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage` - Minimal ISO
-# Make sure to enable flakes and nix-command on the host system, before building the ISO
-# Resulting image can be found in ./result/iso/ directory
 {
   description = "Unstable NixOS custom installation media";
+
+  # Main sources and repositories
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    bcachefs-tools.url = "github:koverstreet/bcachefs-tools";
+    nixpkgs.url = "nixpkgs/nixos-unstable"; # Unstable NixOS system (default)
+    bcachefs-tools = {
+      url = "github:koverstreet/bcachefs-tools";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Don't add follows nixpkgs, else will cause local rebuilds
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # Bleeding edge packages from chaotic nyx, especially CachyOS kernel
   };
+
   outputs = {
     self,
     nixpkgs,
+    chaotic,
     ...
   } @ inputs: let
     system = "x86_64-linux"; # change arch here
 
     specialArgs = {
-      inherit system;
       inherit inputs;
     };
   in {
     formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
-    ## GRAPHICAL ISO ##
-    nixosConfigurations.nixos-iso = nixpkgs.lib.nixosSystem {
+
+    ## GNOME ISO ##
+    nixosConfigurations.nixos-gnome = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-        ./graphical-configuration.nix
+        ./gnome
       ];
       inherit specialArgs;
     };
+
+    ## COSMIC ISO ##
+    nixosConfigurations.nixos-cosmic = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [
+        ./cosmic
+      ];
+      inherit specialArgs;
+    };
+
     ## MINIMAL ISO ##
     nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ./minimal-configuration.nix
+        ./minimal
       ];
       inherit specialArgs;
     };
   };
 
-  # Add nix community cache
+  # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
     extra-substituters = [
+      "https://nyx.chaotic.cx/"
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };

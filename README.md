@@ -24,13 +24,19 @@ git clone https://github.com/JohnRTitor/nix-iso.git
 cd nix-iso
 ```
 
-* For building full graphical ISO
+### For building full GNOME ISO
 
-```shell
-env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-iso.config.system.build.isoImage --impure
+```bash
+env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-gnome.config.system.build.isoImage --impure
 ```
 
-* For building minimal ISO
+### For building full Cosmic ISO (EXPERIMENTAL)
+
+```bash
+env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-cosmic.config.system.build.isoImage --impure
+```
+
+### For building minimal ISO
 
 ```bash
 env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
