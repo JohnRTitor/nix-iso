@@ -20,15 +20,11 @@
     "flakes"
   ]; # enable nix command and flakes
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      bcachefs-tools = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
-    })
-  ];
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
-
+  boot.bcachefs.package = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
   boot.zfs.package = lib.mkOverride 99 pkgs.zfs_cachyos;
+
   boot.supportedFilesystems = [
     "btrfs"
     "vfat"
