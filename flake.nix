@@ -48,6 +48,14 @@
         inherit specialArgs;
       };
 
+      nixosConfigurations.nixos-custom = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./custom-iso
+        ];
+        inherit specialArgs;
+      };
+
       ## MINIMAL ISO ##
       nixosConfigurations.nixos-minimal = nixpkgs.lib.nixosSystem {
         inherit system;
