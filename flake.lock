@@ -13,11 +13,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1772299513,
-        "narHash": "sha256-CBgX8Kqs0En4zkTTijfs8Y0UrmMoCqiqc8+HhBcskE8=",
+        "lastModified": 1772916030,
+        "narHash": "sha256-ZOXOYqCRPYD78JMbSD+DZWVqwqneKfcuUUbO4TYiaTA=",
         "owner": "koverstreet",
         "repo": "bcachefs-tools",
-        "rev": "4d15b3add0e598e74764bbbff1ec3feeda18d8f6",
+        "rev": "2b0872ba124b22f4418981967832ed5192c9b08f",
         "type": "github"
       },
       "original": {
@@ -232,11 +232,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1772198003,
-        "narHash": "sha256-I45esRSssFtJ8p/gLHUZ1OUaaTaVLluNkABkk6arQwE=",
+        "lastModified": 1772773019,
+        "narHash": "sha256-E1bxHxNKfDoQUuvriG71+f+s/NT0qWkImXsYZNFFfCs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dd9b079222d43e1943b6ebd802f04fd959dc8e61",
+        "rev": "aca4d95fce4914b3892661bcb80b8087293536c6",
         "type": "github"
       },
       "original": {
