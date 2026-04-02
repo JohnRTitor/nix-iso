@@ -8,16 +8,12 @@
       url = "github:koverstreet/bcachefs-tools";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Don't add follows nixpkgs, else will cause local rebuilds
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # Bleeding edge packages from chaotic nyx, especially CachyOS kernel
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      chaotic,
       ...
     }@inputs:
     let

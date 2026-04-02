@@ -6,7 +6,6 @@
 }:
 {
   imports = [
-    inputs.chaotic.nixosModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -21,9 +20,8 @@
   ]; # enable nix command and flakes
 
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.bcachefs.package = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
-  boot.zfs.package = lib.mkOverride 99 pkgs.zfs_cachyos;
 
   boot.supportedFilesystems = [
     "btrfs"
