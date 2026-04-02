@@ -45,11 +45,16 @@ jobs:
         with:
           name: Unstable-ISO.iso
 
+      - name: Generate timestamp tag
+        id: tag
+        run: |
+          echo "tag=$(date -u +'%Y.%m.%d-%H.%M')" >> $GITHUB_OUTPUT
+
       - name: release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          title: Continuous build
-          automatic_release_tag: ${{ github.run_id }}
+          title: Continuous build ${{ steps.tag.outputs.tag }}
+          automatic_release_tag: ${{ steps.tag.outputs.tag }}
           prerelease: false
           draft: false
           files: |
