@@ -13,7 +13,7 @@
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"
     ../common.nix
   ];
 

@@ -1,9 +1,10 @@
 # This module defines a NixOS installation CD that contains Cosmic.
 
-{ lib, pkgs, ... }:
+{ lib, inputs, pkgs, ... }:
 
 {
   imports = [
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"
     ./cosmic.nix
     ../common.nix
   ];

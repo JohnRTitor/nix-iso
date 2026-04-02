@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -21,18 +22,10 @@
 
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.bcachefs.package = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
+  # boot.bcachefs.package = inputs.bcachefs-tools.packages.${pkgs.system}.bcachefs-tools;
 
   boot.supportedFilesystems = [
-    "btrfs"
-    "vfat"
-    "f2fs"
-    "xfs"
-    "ntfs"
-    "cifs"
     "bcachefs"
-    "ext4"
-    "zfs"
   ];
 
   environment.systemPackages = with pkgs; [
