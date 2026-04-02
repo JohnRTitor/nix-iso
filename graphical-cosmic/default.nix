@@ -5,6 +5,7 @@
 {
   imports = [
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"
+    "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/latest-kernel.nix"
     ./cosmic.nix
     ../common.nix
   ];

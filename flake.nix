@@ -24,13 +24,13 @@
       };
     in
     {
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
 
       ## GNOME ISO ##
       nixosConfigurations.nixos-gnome = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./gnome
+          ./graphical-gnome
         ];
         inherit specialArgs;
       };
@@ -39,7 +39,15 @@
       nixosConfigurations.nixos-cosmic = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./cosmic
+          ./graphical-cosmic
+        ];
+        inherit specialArgs;
+      };
+      
+      nixosConfigurations.nixos-combined = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./graphical-combined
         ];
         inherit specialArgs;
       };
