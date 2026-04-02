@@ -1,4 +1,4 @@
-name: Release NixOS unstable ISO
+name: Release NixOS unstable minimal ISO
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -29,10 +29,10 @@ jobs:
         run: |
           env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
 
-      - name: Upload artifact  
+      - name: Upload artifact
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: Unstable-ISO.iso
+          name: Unstable-minimal-ISO.iso
           path: result/iso/
 
   release:
@@ -43,7 +43,6 @@ jobs:
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/download-artifact@v4.1.8
         with:

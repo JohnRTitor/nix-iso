@@ -1,0 +1,36 @@
+name: Release NixOS unstable combined ISO
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: [update-flake-lock]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/actions
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+
+      - name: Check repo
+        uses: actions/checkout@v4
+
+      - name: Build Combined ISO
+        run: |
+          env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-combined.config.system.build.isoImage --impure
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: Unstable-combined-ISO.iso
+          path: result/iso/

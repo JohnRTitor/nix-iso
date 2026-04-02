@@ -36,6 +36,15 @@
     parted
     efibootmgr
   ];
+  
+  # Enable ZRAM
+  zramSwap = {
+    enable = true;
+    # this means that maximum 200% worth of physical memory size
+    # can be utilised in zram, by using compression
+    # this does not mean 200% of actual physical memory is used
+    memoryPercent = 200;
+  };
 
   # Wireless network and wired network is enabled by default
 }

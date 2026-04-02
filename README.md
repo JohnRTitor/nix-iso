@@ -4,8 +4,8 @@ This repository contains configuration files for building a custom NixOS ISO. Th
 
 Two types of ISO can be built:-
 
-* Graphical
-* Minimal
+- Graphical
+- Minimal
 
 See different instructions below.
 
@@ -24,17 +24,25 @@ git clone https://github.com/JohnRTitor/nix-iso.git
 cd nix-iso
 ```
 
+### For building full combined (GNOME + KDE) ISO
+
+```bash
+env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-combined.config.system.build.isoImage --impure
+```
+
 ### For building full GNOME ISO
 
 ```bash
 env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-gnome.config.system.build.isoImage --impure
 ```
 
-### For building full Cosmic ISO (EXPERIMENTAL)
+### For building full Cosmic ISO (New)
 
 ```bash
 env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-cosmic.config.system.build.isoImage --impure
 ```
+
+Note: Calameres installer may not work in Cosmic ISO, a manual install might be needed. See the official NixOS manual.
 
 ### For building minimal ISO
 

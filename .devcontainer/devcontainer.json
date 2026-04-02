@@ -15,8 +15,8 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "nix.enableLanguageServer": true,
-        "nix.serverPath": "nixd",
+        // "nix.enableLanguageServer": true,
+        // "nix.serverPath": "nixd",
       },
       "extensions": ["jnoortheen.nix-ide"],
     },
