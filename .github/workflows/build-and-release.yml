@@ -14,30 +14,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: prepare /nix
-        shell: bash
-        env:
-          CLEAN: "true"
-          BTRFS: "true"
-        run: |
-          curl -o prepare.sh https://raw.githubusercontent.com/JohnRTitor/nixpkgs-review-gha/refs/heads/main/helpers/prepare.sh
-          bash prepare.sh
-
-      - name: install nix
-        uses: cachix/install-nix-action@v30
+      - uses: actions/checkout@v4
         with:
-          extra_nix_config: |
-            accept-flake-config = true
-            build-dir = /nix/var
-            experimental-features = nix-command flakes
-            sandbox = true
-      - name: Checkout repository
+          sparse-checkout: |
+            .github/actions
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+
+      - name: Check repo
         uses: actions/checkout@v4
 
-      - name: build
+      - name: Build Minimal ISO
         run: |
           env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
-      - name: Upload artifact
+
+      - name: Upload artifact  
         uses: actions/upload-artifact@v4.4.0
         with:
           name: Unstable-ISO.iso
