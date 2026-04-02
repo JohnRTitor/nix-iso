@@ -37,7 +37,11 @@ jobs:
 
   release:
     needs: [build]
-    permissions: write-all
+    permissions:
+      contents: write
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
 
     steps:
