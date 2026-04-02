@@ -21,4 +21,7 @@
       "extensions": ["jnoortheen.nix-ide"],
     },
   },
+  "containerEnv": {
+    "TMPDIR": "/tmp"
+  }
 }

@@ -3,7 +3,7 @@
 
   # Main sources and repositories
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable"; # Unstable NixOS system (default)
+    nixpkgs.url = "nixpkgs/master"; # Unstable NixOS system (default)
     bcachefs-tools = {
       url = "github:koverstreet/bcachefs-tools";
       inputs.nixpkgs.follows = "nixpkgs";
