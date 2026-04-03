@@ -30,7 +30,7 @@ jobs:
           env NIXPKGS_ALLOW_BROKEN=1 nix build .#nixosConfigurations.nixos-minimal.config.system.build.isoImage --impure
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: Unstable-minimal-ISO.iso
           path: result/iso/
