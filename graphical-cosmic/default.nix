@@ -15,9 +15,4 @@
   # Enable NetworkManager to manage network connections.
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-
-  environment.systemPackages = with pkgs; [
-    gparted
-    google-chrome
-  ];
 }
