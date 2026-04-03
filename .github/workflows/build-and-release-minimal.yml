@@ -1,4 +1,4 @@
-name: Release NixOS unstable minimal ISO
+name: Build & Release NixOS unstable minimal ISO
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
