@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v8.0.1
         with:
-          name: Unstable-ISO.iso
+          name: Unstable-minimal-ISO.iso
 
       - name: Generate timestamp tag
         id: tag
